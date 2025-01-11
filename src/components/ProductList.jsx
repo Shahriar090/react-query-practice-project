@@ -5,7 +5,7 @@ const retrieveProducts = async ({ queryKey }) => {
   return response?.data;
 };
 
-const ProductList = () => {
+const ProductList = ({ onProductSelect }) => {
   const {
     isError,
     isLoading,
@@ -48,7 +48,10 @@ const ProductList = () => {
               <h2 className="text-black text-lg font-medium line-clamp-1">
                 {product?.title}
               </h2>
-              <button className="px-2 py-2 border border-cyan-500 font-medium text-sm text-cyan-500 rounded-xs w-full hover:bg-cyan-500 hover:text-white transition-all duration-300 rounded-sm mt-2">
+              <button
+                onClick={() => onProductSelect(product?.id)}
+                className="px-2 py-2 border border-cyan-500 font-medium text-sm text-cyan-500 rounded-xs w-full hover:bg-cyan-500 hover:text-white transition-all duration-300 rounded-sm mt-2"
+              >
                 See Details
               </button>
             </li>
