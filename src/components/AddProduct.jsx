@@ -1,23 +1,51 @@
 import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
 const AddProduct = () => {
   const [formState, setFormState] = useState({
     title: "",
     description: "",
-    price: "",
-    rating: "",
+    price: 0,
+    rating: 5,
     thumbnail: "",
+  });
+
+  const queryClient = useQueryClient();
+
+  //   mutation function
+  const mutation = useMutation({
+    mutationFn: (newProduct) => {
+      return axios.post("http://localhost:3000/products", newProduct);
+    },
+    // Invalidating the cache for products after adding a new product to show the latest products in the UI without refreshing or changing tabs.
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+    },
   });
 
   //   form submit function
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    const newFormData = { ...formState, id: crypto.randomUUID().toString() };
+    mutation.mutate(newFormData);
+    setFormState({
+      title: "",
+      description: "",
+      price: "",
+      rating: "",
+      thumbnail: "",
+    });
   };
 
   //   form onchange function
-  const handleChange = () => {};
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value =
+      e.target.type === "number" ? e.target.valueAsNumber : e.target.value;
+
+    setFormState({ ...formState, [name]: value });
+  };
 
   return (
     <div className="w-1/5 border h-full p-4 bg-gray-100">
