@@ -36,7 +36,7 @@ const ProductDetails = ({ id }) => {
     );
   }
   return (
-    <div className="w-1/5 border h-full p-4">
+    <div className="w-1/5 border h-full p-4 bg-gray-100">
       <h1 className="text-3xl font-semibold text-black text-center py-8">
         Product Details
       </h1>
