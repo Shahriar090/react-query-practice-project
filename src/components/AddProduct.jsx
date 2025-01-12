@@ -47,6 +47,14 @@ const AddProduct = () => {
     setFormState({ ...formState, [name]: value });
   };
 
+  if (mutation.isPending) return <p>Adding Product....</p>;
+  if (mutation.isError) {
+    <div>An Error Occurred : {mutation.error.message}</div>;
+  }
+  if (mutation.isSuccess) {
+    setTimeout(() => mutation.reset(), 3000);
+    return <p>Product Added Successfully...!</p>;
+  }
   return (
     <div className="w-1/5 border h-full p-4 bg-gray-100">
       <h1 className="text-3xl font-semibold text-black text-center py-8">
