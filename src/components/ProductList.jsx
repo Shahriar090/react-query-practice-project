@@ -1,18 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useState } from "react";
 const retrieveProducts = async ({ queryKey }) => {
-  const response = await axios.get(`http://localhost:3000/${queryKey[0]}`);
+  console.log("Query Key", queryKey);
+  const response = await axios.get(
+    `http://localhost:3000/products?_page=${queryKey[1].page}&_per_page=10`
+  );
   return response?.data;
 };
 
 const ProductList = ({ onProductSelect }) => {
+  const [page, setPage] = useState(1);
   const {
     isError,
     isLoading,
     data: products,
     error,
   } = useQuery({
-    queryKey: ["products"],
+    queryKey: ["products", { page }],
     queryFn: retrieveProducts,
   });
 
@@ -37,8 +42,8 @@ const ProductList = ({ onProductSelect }) => {
         All Products
       </h1>
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  gap-4">
-        {products &&
-          products.map((product) => (
+        {products.data &&
+          products?.data?.map((product) => (
             <li className="border shadow-sm p-4 rounded-sm" key={product?.id}>
               <img
                 src={product?.thumbnail}
@@ -57,6 +62,25 @@ const ProductList = ({ onProductSelect }) => {
             </li>
           ))}
       </ul>
+      {/* pagination btns */}
+      <div className="mt-3 flex justify-center">
+        {products.prev && (
+          <button
+            className="p-1 mx-1 bg-gray-100 border cursor-pointer rounded-sm"
+            onClick={() => setPage(products.prev)}
+          >
+            Previous
+          </button>
+        )}
+        {products.next && (
+          <button
+            className="p-1 mx-1 bg-gray-100 border cursor-pointer rounded-sm"
+            onClick={() => setPage(products.next)}
+          >
+            Next
+          </button>
+        )}
+      </div>
     </div>
   );
 };
