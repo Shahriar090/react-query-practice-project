@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 const Navbar = () => {
   return (
     <nav className="w-full h-20 bg-cyan-500 px-8 py-2 flex items-center justify-between">
@@ -18,7 +20,7 @@ const Navbar = () => {
       <div className="nav-items w-[30%]">
         <ul className="flex items-center space-x-4 text-white text-xl justify-end">
           <li>
-            <a href="#">Home</a>
+            <Link to={"/"}>Home</Link>
           </li>
           <li>
             <a href="#">About</a>
@@ -27,7 +29,7 @@ const Navbar = () => {
             <a href="#">Products</a>
           </li>
           <li>
-            <a href="#">Login</a>
+            <Link to={"/login"}>Login</Link>
           </li>
         </ul>
       </div>
