@@ -80,7 +80,7 @@ const ProductList = ({ onProductSelect }) => {
     );
   }
   return (
-    <div className="w-3/5 border p-4">
+    <div className="w-full md:w-3/5 border p-4">
       <h1 className="text-3xl font-semibold text-black text-center py-8">
         All Products
       </h1>

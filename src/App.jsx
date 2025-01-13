@@ -10,7 +10,7 @@ const App = () => {
   return (
     <>
       <Navbar />
-      <div className="flex mt-8 gap-2 px-4">
+      <div className="flex flex-col md:flex-row mt-8 gap-2 px-4 relative">
         <AddProduct />
         {/* passing selected product id to product list component */}
         <ProductList onProductSelect={setSelectedProductId} />

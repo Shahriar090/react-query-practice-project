@@ -56,7 +56,7 @@ const AddProduct = () => {
     return <p>Product Added Successfully...!</p>;
   }
   return (
-    <div className="w-1/5 border h-full p-4 bg-gray-100">
+    <div className="w-full md:w-1/5 border h-full p-4 bg-gray-100 md:sticky top-0 ">
       <h1 className="text-3xl font-semibold text-black text-center py-8">
         Add Product
       </h1>

@@ -16,7 +16,7 @@ const Navbar = () => {
       </div>
 
       <div className="nav-items w-[30%]">
-        <ul className="flex items-center space-x-4 text-white text-xl">
+        <ul className="flex items-center space-x-4 text-white text-xl justify-end">
           <li>
             <a href="#">Home</a>
           </li>
