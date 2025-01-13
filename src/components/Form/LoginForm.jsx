@@ -1,7 +1,7 @@
 import Field from "./Field";
 import FieldSet from "./FieldSet";
 import { useForm } from "react-hook-form";
-
+import { Link } from "react-router";
 const LoginForm = () => {
   const {
     register,
@@ -28,7 +28,7 @@ const LoginForm = () => {
     console.log(formData);
   };
   return (
-    <div>
+    <div className="w-full">
       <form onSubmit={handleSubmit(submitForm)}>
         <FieldSet label={"Enter Login Details"}>
           <Field label={"Email"} error={errors.email}>
@@ -73,6 +73,12 @@ const LoginForm = () => {
               className="px-2 py-2 border border-cyan-500 font-medium text-sm text-cyan-500 rounded-xs w-full hover:bg-cyan-500 hover:text-white transition-all duration-300 rounded-sm mt-2"
             />
           </Field>
+          <p className="text-sm font-medium text-gray-700">
+            New Here?{" "}
+            <Link to={"/register"}>
+              <span className="text-cyan-500">Register</span>
+            </Link>
+          </p>
         </FieldSet>
       </form>
     </div>

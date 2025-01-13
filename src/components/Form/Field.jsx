@@ -11,7 +11,7 @@ const Field = ({ label, children, htmlFor, error }) => {
 
   const id = htmlFor || getChildId(children);
   return (
-    <div className="flex flex-col items-start justify-start w-3/4">
+    <div className="flex flex-col items-start justify-start w-full">
       {label && <label htmlFor={id}>{label}</label>}
       {children}
       {!!error && (
