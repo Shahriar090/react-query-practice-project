@@ -1,7 +1,8 @@
 import { Link } from "react-router";
 import Field from "./Field";
 import FieldSet from "./FieldSet";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useFieldArray, useForm, Controller } from "react-hook-form";
+import NumberInput from "./NumberInput";
 
 const RegistrationForm = () => {
   const {
@@ -64,13 +65,19 @@ const RegistrationForm = () => {
             />
           </Field>
           <Field label={"Age"}>
-            <input
-              {...register("age")}
-              type="number"
-              id="age"
+            <Controller
               name="age"
-              placeholder="Enter Your Age"
-              className="border-2 w-full px-3 py-2 rounded-sm text-black font-medium"
+              control={control}
+              render={({ field }) => (
+                <NumberInput
+                  id="age"
+                  className="border-2 w-full px-3 py-2 rounded-sm text-black font-medium"
+                  {...field}
+                />
+              )}
+              rules={{
+                max: { value: 100, message: "Age Can Be Between 0 And 100" },
+              }}
             />
           </Field>
 
