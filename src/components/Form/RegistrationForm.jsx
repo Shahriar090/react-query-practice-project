@@ -3,6 +3,7 @@ import Field from "./Field";
 import FieldSet from "./FieldSet";
 import { useFieldArray, useForm, Controller } from "react-hook-form";
 import NumberInput from "./NumberInput";
+import { registerWithEmailAndPassword } from "../../firebase/firebase";
 
 const RegistrationForm = () => {
   const {
@@ -17,14 +18,20 @@ const RegistrationForm = () => {
     name: "socials",
     control,
   });
-  const submitForm = (formData) => {
-    console.log(formData);
+  const submitForm = async (formData) => {
+    try {
+      const { email, password } = formData;
+      const newUser = await registerWithEmailAndPassword(email, password);
+      console.log(newUser);
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <div className="w-full">
       <form onSubmit={handleSubmit(submitForm)}>
         <FieldSet label={"Please Enter Your Basic Information"}>
-          <Field label={"First Name"}>
+          {/* <Field label={"First Name"}>
             <input
               {...register("first_name")}
               type="text"
@@ -33,8 +40,8 @@ const RegistrationForm = () => {
               placeholder="Enter First Name"
               className="border-2 w-full px-3 py-2 rounded-sm text-black font-medium"
             />
-          </Field>
-          <Field label={"Last Name"}>
+          </Field> */}
+          {/* <Field label={"Last Name"}>
             <input
               {...register("last_name")}
               type="text"
@@ -43,7 +50,7 @@ const RegistrationForm = () => {
               placeholder="Enter Last Name"
               className="border-2 w-full px-3 py-2 rounded-sm text-black font-medium"
             />
-          </Field>
+          </Field> */}
           <Field label={"Email"}>
             <input
               {...register("email")}
@@ -64,7 +71,7 @@ const RegistrationForm = () => {
               className="border-2 w-full px-3 py-2 rounded-sm text-black font-medium"
             />
           </Field>
-          <Field label={"Age"}>
+          {/* <Field label={"Age"}>
             <Controller
               defaultValue={1}
               name="age"
@@ -80,7 +87,7 @@ const RegistrationForm = () => {
                 max: { value: 100, message: "Age Can Be Between 0 And 100" },
               }}
             />
-          </Field>
+          </Field> */}
 
           <p className="text-sm font-medium text-gray-700">
             Already Have An Account?{" "}

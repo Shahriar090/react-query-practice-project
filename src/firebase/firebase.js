@@ -14,3 +14,16 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
+
+// register a user
+const registerWithEmailAndPassword = async (email, password) => {
+  try {
+    const res = await createUserWithEmailAndPassword(auth, email, password);
+    const newUser = res.user;
+    return newUser;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export { registerWithEmailAndPassword };
