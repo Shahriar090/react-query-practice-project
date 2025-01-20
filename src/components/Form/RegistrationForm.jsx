@@ -66,6 +66,7 @@ const RegistrationForm = () => {
           </Field>
           <Field label={"Age"}>
             <Controller
+              defaultValue={1}
               name="age"
               control={control}
               render={({ field }) => (
