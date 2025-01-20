@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Field from "./Field";
 import FieldSet from "./FieldSet";
 import { useFieldArray, useForm, Controller } from "react-hook-form";
@@ -18,11 +18,16 @@ const RegistrationForm = () => {
     name: "socials",
     control,
   });
+
+  const navigate = useNavigate();
+
+  // submit form function
   const submitForm = async (formData) => {
     try {
       const { email, password } = formData;
       const newUser = await registerWithEmailAndPassword(email, password);
       console.log(newUser);
+      navigate("/login");
     } catch (error) {
       console.error(error);
     }

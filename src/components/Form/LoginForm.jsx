@@ -1,7 +1,8 @@
+import { loginWithEmailAndPassword } from "../../firebase/firebase";
 import Field from "./Field";
 import FieldSet from "./FieldSet";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 const LoginForm = () => {
   const {
     register,
@@ -10,22 +11,18 @@ const LoginForm = () => {
     setError,
   } = useForm();
 
-  const submitForm = (formData) => {
-    const user = {
-      email: "shahriar@gmail.com",
-      password: "12345678",
-    };
+  const navigate = useNavigate();
 
-    const found =
-      formData.email === user.email && formData.password === user.password;
-
-    if (!found) {
-      setError("root.random", {
-        message: `User With Email ${formData.email} Is Not Found`,
-        type: "random",
-      });
+  // login submit form
+  const submitForm = async (formData) => {
+    try {
+      const { email, password } = formData;
+      const result = await loginWithEmailAndPassword(email, password);
+      navigate("/");
+      console.log(result);
+    } catch (error) {
+      console.error(error);
     }
-    console.log(formData);
   };
   return (
     <div className="w-full">
@@ -46,8 +43,8 @@ const LoginForm = () => {
               {...register("password", {
                 required: "Password Is Required",
                 minLength: {
-                  value: 8,
-                  message: "Password Must Be At Least Minimum 8 Characters.!",
+                  value: 6,
+                  message: "Password Must Be At Least Minimum 6 Characters.!",
                 },
                 maxLength: {
                   value: 20,
